@@ -12,7 +12,7 @@ public class Util {
     private static final String USER = "root117";
     private static final String PASSWORD = "root";
     // реализуйте настройку соеденения с БД
-    public Connection getConnection() {
+    public static Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
