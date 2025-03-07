@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() {
         List<User> list = userDao.getAllUsers();
-        System.out.println(list.toString());
+        System.out.println(list);
         return list;
     }
 
