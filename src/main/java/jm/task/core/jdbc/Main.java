@@ -12,8 +12,17 @@ import jm.task.core.jdbc.util.Util;
 public class Main {
     public static void main(String[] args) {
         UserDaoHibernateImpl dao = new UserDaoHibernateImpl();
+
         dao.createUsersTable();
-        //        Util.getSessionFactory();
+        dao.saveUser("Bysenok", "Ilmenskaya", (byte) 4);
+        dao.saveUser("Nusha", "Ilmenskaya", (byte) 3);
+        dao.removeUserById(1);
+        dao.getAllUsers();
+        dao.cleanUsersTable();
+        dao.dropUsersTable();
+
+
+
 ////        UserService userService = new UserServiceImpl();
 //
 //        userService.createUsersTable();
