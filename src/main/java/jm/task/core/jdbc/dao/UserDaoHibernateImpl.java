@@ -4,23 +4,21 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 
 
 
 public class UserDaoHibernateImpl implements UserDao {
-    private Session session = Util.getSessionFactory().openSession();
+    private static final Session session = Util.getSessionFactory().openSession();
     private Transaction transaction = null;
-
-
-
 
 
     public UserDaoHibernateImpl() {
 
     }
-
 
     @Override
     public void createUsersTable() {
@@ -38,8 +36,6 @@ public class UserDaoHibernateImpl implements UserDao {
     } catch (Exception e) {
         e.printStackTrace();}
     }
-
-
 
     @Override
     public void dropUsersTable() {
@@ -63,6 +59,7 @@ public class UserDaoHibernateImpl implements UserDao {
         session.save(new User(name, lastName, age));
         transaction.commit();
     } catch (Exception e) {
+        transaction.rollback();
         e.printStackTrace();
         }
     }
@@ -75,19 +72,22 @@ public class UserDaoHibernateImpl implements UserDao {
     session.delete(user);
     transaction.commit();
     } catch (Exception e) {
+            transaction.rollback();
         e.printStackTrace();
         }
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = (List<User>) session.createCriteria(User.class).list();
+        List<User> users = new ArrayList<User>();
         try {
+            users = (List<User>) session.createCriteria(User.class).list();
             transaction = session.beginTransaction();
             session.flush();
             transaction.commit();
 
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
         }
         return users;
@@ -102,6 +102,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.flush();
             transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             e.printStackTrace();
         }
 
