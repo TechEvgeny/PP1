@@ -13,22 +13,22 @@ import jm.task.core.jdbc.util.Util;
 
 public class Main {
     public static void main(String[] args) {
-        UserDao dao = new UserDaoHibernateImpl();
-
-        dao.createUsersTable();
-        dao.saveUser("Bysenok", "Ilmenskaya", (byte) 4);
-        dao.saveUser("Nusha", "Ilmenskaya", (byte) 3);
-        dao.removeUserById(1);
-        dao.getAllUsers();
-        dao.cleanUsersTable();
-        dao.dropUsersTable();
-
-
-
         UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
+        userService.saveUser("Bysenok", "Ilmenskaya", (byte) 4);
+        userService.saveUser("Nusha", "Ilmenskaya", (byte) 3);
 
+        userService.removeUserById(1);
+        userService.getAllUsers();
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
+
+
+
+
+
+        userService.createUsersTable();
         userService.saveUser("Name1", "LastName1", (byte) 20);
         userService.saveUser("Name2", "LastName2", (byte) 25);
         userService.saveUser("Name3", "LastName3", (byte) 31);
